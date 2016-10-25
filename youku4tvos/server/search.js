@@ -209,24 +209,18 @@ function showSearchResults(text, pg, pz, callback) {
 function playSearchVideo(data, index) {
     var video_id = data['results'][index]['videoid'];
     console.log("playsearch video: "+index+" ,videoid:"+video_id);
-    var uri = 'http://play.youku.com/play/get.json?vid='+video_id+'&ct=12';
-    getHTTP(uri, function(text) {
-        var movdat = JSON.parse(text);
-        var oip = movdat['data']['security']['ip'];
-        var epdata = movdat['data']['security']['encrypt_string'];
-        
-        var templateXHR = new XMLHttpRequest();
-        var url = baseURL+"ykdecode.php?vid="+video_id+"&oip="+encodeURI(oip)+"&epdata="+encodeURI(epdata);
-        console.log("request m3u8 by url: " + url);
-        templateXHR.responseType = "document";
-        templateXHR.addEventListener("load", function() {
-            var m3u8=templateXHR.responseText;
-            playSearchVideoWithM3U8(data, index, m3u8);
-        }, false);
-        templateXHR.open("GET", url, true);
-        templateXHR.send();
+    var loadDoc = createLoadingDocument("尝试解码链接中...");
+    navigationDocument.pushDocument(loadDoc);
+    getM3U8ByVid(video_id, function(m3u8) {
+        console.log("play by local..");
+        playSearchVideoWithM3U8(data, index, m3u8);
+        setTimeout(function(){
+            console.log("timeout remove loadDoc");
+            navigationDocument.removeDocument(loadDoc);
+        }, 800);
     });
 }
+
 function playSearchVideoWithM3U8(data, index, m3u8) {
     console.log("request m3u8 by url: " + m3u8);
     var vid = data['results'][index]['videoid'];

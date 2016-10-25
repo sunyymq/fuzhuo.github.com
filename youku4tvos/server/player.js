@@ -26,9 +26,8 @@ function playByDataIndex(detail_data, series_data, index) {
     var video_id = series_data[index]['videoid'];
     if (detail_data['cats']=='电影') video_id=detail_data['videoid'];
     console.log("play sid:"+seriesID+",vid:"+video_id);
-    var loadDoc = createLoadingDocument("优酷尝试解码链接中...");
+    var loadDoc = createLoadingDocument("尝试解码链接中...");
     navigationDocument.pushDocument(loadDoc);
-    var uri = 'http://play.youku.com/play/get.json?vid='+video_id+'&ct=12';
     getM3U8ByVid(video_id, function(m3u8) {
         console.log("play by local..");
         play(detail_data, series_data, index, m3u8);
