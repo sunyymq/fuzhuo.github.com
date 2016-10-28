@@ -1,5 +1,5 @@
-const YOUKU_YOUKU_HOST="http://tv.api.3g.youku.com/";
-const IDS="pid=0ce22bfd5ef5d2c5&guid=12d60728bd267e3e0b6ab4d124d6c5f0&ngdid=357e71ee78debf7340d29408b88c85c4&ver=2.6.0&operator=T-Mobile_310260&network=WIFI&launcher=0";
+const YOUKU_HOST="http://tv.api.3g.youku.com/";
+const YOUKU_IDS="pid=0ce22bfd5ef5d2c5&guid=12d60728bd267e3e0b6ab4d124d6c5f0&ngdid=357e71ee78debf7340d29408b88c85c4&ver=2.6.0&operator=T-Mobile_310260&network=WIFI&launcher=0";
 var mainDoc;
 
 var channels = {
@@ -19,7 +19,7 @@ var getCategoryPageWithChannelID = function(index, callback) {
     let channel_id = channels['data'][index]['channel_id'];
     let page = channels['data'][index]['page'];
     let page_size = 58;
-    var url = `${YOUKU_YOUKU_HOST}layout/smarttv/item_list?${IDS}&cid=${channel_id}&pz=${page_size}&pg=${page}&filter=`;
+    var url = `${YOUKU_HOST}layout/smarttv/item_list?${YOUKU_IDS}&cid=${channel_id}&pz=${page_size}&pg=${page}&filter=`;
     console.log("url:"+url);
     getHTTP(url, function(content){
         //console.log("content:"+content);
@@ -125,6 +125,8 @@ function showMainMenu() {
             const ele = event.target.parentNode;
             const feature = ele.getFeature("MenuBarDocument");
             if (!feature.getDocument(event.target)) {
+                var loadDoc = createLoadingDocument("加载中...");
+                feature.setDocument(loadDoc, event.target);
                 templateFuncs[index](index, function(doc, loading) {
                     feature.setDocument(doc, event.target);
                 });

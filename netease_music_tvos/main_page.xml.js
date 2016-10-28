@@ -163,24 +163,9 @@ function showNetEaseMusicMainPage() {
 }
 
 function showNetEasePlayList(keyword) {
-    var templateXHR = new XMLHttpRequest();
+    console.log("jsb call httpGet: " + keyword);
     var url = "http://music.163.com/api/search/get";
-    var postData = "s=Jay&type=1000&sub=false&limit=40&offset=0";
-    console.log("getHTTP:"+url);
-    templateXHR.responseType = "document";
-    templateXHR.timeout = 10000;
-    templateXHR.addEventListener("load", function() {
-        console.log(templateXHR.responseText);
-    }, false);
-    templateXHR.addEventListener("timeout", function() {
-        const alertDocument = createAlertDocument("请求超时", `<![CDATA[未能成功拉取:${url}]]>`);
-        navigationDocument.pushDocument(alertDocument);
-    }, false);
-    templateXHR.addEventListener("error", function(e) {
-        const alertDocument = createAlertDocument("请求错误", `<![CDATA[未能成功拉取:${url}]]>`);
-        navigationDocument.pushDocument(alertDocument);
-    }, false);
-    templateXHR.open("POST", url, true);
-    templateXHR.setRequestHeader('Referer', 'http://music.163.com');
-    templateXHR.send(postData);
+    var referer = "http://music.163.com";
+    var postData = `s=${keyword}&type=1000&sub=false&limit=40&offset=0`;
+    var content = JSB.httpPost(url, referer, postData);
 }

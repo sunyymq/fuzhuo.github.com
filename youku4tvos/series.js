@@ -2,8 +2,8 @@
 var seriesDoc;
 
 function createSeriesDoc(serieID, callback) {
-    var url = `${YOUKU_HOST}layout/smarttv/play/detail?${IDS}&id=${serieID}`;
-	var series_url = `${YOUKU_HOST}layout/smarttv/shows/${serieID}/series?${IDS}`;
+    var url = `${YOUKU_HOST}layout/smarttv/play/detail?${YOUKU_IDS}&id=${serieID}`;
+	var series_url = `${YOUKU_HOST}layout/smarttv/shows/${serieID}/series?${YOUKU_IDS}`;
 	console.log("url: " + url);
 	getHTTP(url, function(detail_data) {
         getHTTP(series_url, function(series_data) {

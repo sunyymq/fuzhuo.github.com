@@ -18,7 +18,8 @@ App.onLaunch = function(options) {
         "TumblrBrowser/tumblr.xml",
         "lava/home.xml",
         "lava/channel.xml",
-        "netease_music_tvos/main_page.xml"
+        "netease_music_tvos/main_page.xml",
+        "netease_music_tvos/music_list.xml"
     ].map(
         moduleName => `${baseURL}${moduleName}.js`
     );

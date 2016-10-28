@@ -33,7 +33,7 @@ var getLavaHomeDoc = function(callback) {
                             <section>`;
             for (var channel_value of value['channels']) {
                 docText += `
-                               <lockup index="1" onselect="showChannel('${channel_value['channel_id']}')">
+                               <lockup index="1" onselect="showChannel('${channel_value['channel_id']}', '${channel_value['channel_name']}')">
                                  <img src="${channel_value['pic_url']}" width="250" height="376" />
                                   <overlay class="overlay">
                                       <title class="overlay_title"><![CDATA[${channel_value['channel_name']}]]></title>

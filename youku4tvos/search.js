@@ -29,7 +29,7 @@ var search = function (index, callback) {
 
 function updateSearch(doc, keyword) {
     if (keyword.length > 0) {
-        let url = `${YOUKU_HOST}openapi-wireless/keywords/suggest?${IDS}&keywords=${keyword}`;
+        let url = `${YOUKU_HOST}openapi-wireless/keywords/suggest?${YOUKU_IDS}&keywords=${keyword}`;
         console.log("url: "+url);
         getHTTP(url, function(datastr){
             var data = JSON.parse(datastr);
@@ -68,7 +68,7 @@ function updateSearch(doc, keyword) {
             lsParser.parseWithContext(lsInput, doc.getElementsByTagName("collectionList").item(0), 2);
         });
     } else {
-        let url = `${YOUKU_HOST}openapi-wireless/keywords/recommend?${IDS}`;
+        let url = `${YOUKU_HOST}openapi-wireless/keywords/recommend?${YOUKU_IDS}`;
         console.log("url: "+url);
         getHTTP(url, function(datastr){
             var data = JSON.parse(datastr);
@@ -115,8 +115,8 @@ function showSearchResultsUI(text, pg=1, pz=20, replace=false) {
 }
 
 function showSearchResults(text, pg, pz, callback) {
-    var url = `${YOUKU_HOST}layout/smarttv/showsearch?copyright_status=1&video_type=1&keyword=${encodeURI(text)}&${IDS}`;
-    var video_url = `${YOUKU_HOST}openapi-wireless/videos/search/${encodeURI(text)}?${IDS}&pg=${pg}&pz=${pz}`;
+    var url = `${YOUKU_HOST}layout/smarttv/showsearch?copyright_status=1&video_type=1&keyword=${encodeURI(text)}&${YOUKU_IDS}`;
+    var video_url = `${YOUKU_HOST}openapi-wireless/videos/search/${encodeURI(text)}?${YOUKU_IDS}&pg=${pg}&pz=${pz}`;
     console.log("series url: "+url);
     console.log("video url: "+video_url);
     getHTTP(url, function(datastr){

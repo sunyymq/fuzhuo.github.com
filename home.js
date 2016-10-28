@@ -6,18 +6,19 @@ var medias = `{
         },
         {
             "title":"Tumblr",
-            "img":"${baseURL}/icons/youku.png"
+            "img":"${baseURL}/icons/tumblr.png"
         },
         {
             "title":"lava",
-            "img":"${baseURL}/icons/youku.png"
+            "img":"${baseURL}/icons/lava.png"
         },
         {
             "title":"NetEaseMusic",
-            "img":"${baseURL}/icons/youku.png"
+            "img":"${baseURL}/icons/netease_music.png"
         }
     ]
 }`;
+
 var getHomeDoc = function(callback) {
     console.log("medias: "+medias);
     var media_data = JSON.parse(medias);
