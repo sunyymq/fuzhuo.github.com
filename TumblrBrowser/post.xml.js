@@ -41,7 +41,7 @@ var getPostDocWithUID = function(uid, page=0, callback) {
 					   <title><![CDATA[${item['reblogged_from_title']}]]></title>
 					   <subtitle><![CDATA[长按${item['reblogged_from_name']}]]></subtitle>
                        <overlay style="padding: 0">
-                       <title style="background-;olor: rgba(0,0,0,0.4); color: #FFFFFF; text-align: center; font-size: 22">视频</title>
+                       <title style="background-color: rgba(0,0,0,0.4); color: #FFFFFF; text-align: center; font-size: 22">视频</title>
                        </overlay>`;
                 } else {
                     text += `

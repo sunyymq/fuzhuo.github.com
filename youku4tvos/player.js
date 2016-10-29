@@ -108,7 +108,7 @@ function updateHistory(detail_data, series_data, index, m3u8_url) {
             if (detail_data['cats']=='电影') {
                 subtitles.item(0).textContent = progress_title;
             } else {
-                subtitles.item(index).textContent = progress_title;
+                //subtitles.item(index).textContent = progress_title;
             }
         }
     }
