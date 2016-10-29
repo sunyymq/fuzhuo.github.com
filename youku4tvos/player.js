@@ -30,15 +30,15 @@ function playByDataIndex(detail_data, series_data, index) {
     navigationDocument.pushDocument(loadDoc);
     getM3U8ByVid(video_id, function(m3u8) {
         console.log("play by local..");
-        play(detail_data, series_data, index, m3u8);
+        youku_play(detail_data, series_data, index, m3u8);
         setTimeout(function(){
             console.log("timeout remove loadDoc");
             navigationDocument.removeDocument(loadDoc);
-        }, 800);
+        }, 1000);
     });
 }
 
-function play(detail_data, series_data, index, m3u8_url) {
+function youku_play(detail_data, series_data, index, m3u8_url) {
     console.log("play m3u8: "+m3u8_url);
     var video = new MediaItem('video', m3u8_url);
     video.artworkImageURL = series_data[index]['img'];

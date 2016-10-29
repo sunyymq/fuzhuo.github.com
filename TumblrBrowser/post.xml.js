@@ -34,7 +34,7 @@ var getPostDocWithUID = function(uid, page=0, callback) {
                 if (item['video'] == null) continue;
                 if (item['video_type'] != 'tumblr') continue;
                 text += `
-					<lockup onselect="play('${item['video']['sizes']['original']['url']}')" onholdselect="showPost('${item['reblogged_from_name']}')">
+					<lockup onselect="tumblr_play('${item['video']['sizes']['original']['url']}')" onholdselect="showPost('${item['reblogged_from_name']}')">
 					   <img src="${item['thumbnail_url']}" width="250" height="376" />`;
                 if (item['reblogged_from_title']) {
                     text += `
@@ -121,7 +121,7 @@ function showPost(uid,page=0) {
 	});
 }
 
-function play(url) {
+function tumblr_play(url) {
     var video = new MediaItem('video', url);
     var videoList = new Playlist();
     videoList.push(video);
