@@ -121,7 +121,7 @@ function createSeriesDoc(serieID, callback) {
                 progress = JSON.parse(progress_str);
             }
             if (detail['cats']=='电影') {
-                var progress_title = "未观看";
+                var progress_title = "上次未观看";
                 if (progress && progress[detail['videoid']]) {
                     progress_title = time2str(progress[detail['videoid']]);
                 }
@@ -134,7 +134,7 @@ function createSeriesDoc(serieID, callback) {
             } else {
                 let i=0;
                 for(var value of series) {
-                var progress_title = "未观看";
+                var progress_title = "上次未观看";
                 if (progress && progress[value['videoid']]) {
                     progress_title = time2str(progress[value['videoid']]);
                 }                    

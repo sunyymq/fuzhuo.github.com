@@ -157,6 +157,12 @@ function getM3U8ByVid(vid, callback) {
         xmlhttp_play.addEventListener("load", function(event) {
             cmd = "infoss="+xmlhttp_play.responseText;
             eval(cmd);
+            if (!infoss || !infoss.data || !infoss.data.security
+                || !info.data.security.ip || !info.data.security.encrypt_string) {
+                    const alertDoc = createAlertDocument("错误", "获取信息不完整，请重试");
+                    navigationDocument.replaceDocument(alertDoc, getActiveDocument());
+                    return;
+            }
             const oip = infoss.data.security.ip;
             const ep = infoss.data.security.encrypt_string;
             const from = "online";
