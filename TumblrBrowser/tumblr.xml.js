@@ -93,14 +93,15 @@ function addItem(blogid) {
             return;
         }
     }
-    navigationDocument.pushDocument(createLoadingDocument(`查询${blogid}信息中..`));
+    var loading = createLoadingDocument(`查询${blogid}信息中..`);
+    navigationDocument.pushDocument(loading);
     var url = `${TUMBLR_HOST}/v2/blog/${blogid}/info?api_key=${TUMBLR_API_KEY}`;
     getHTTP(url, function(content) {
         favData['data'].push(blogid);
         localStorage.setItem('like', JSON.stringify(favData));
         getTumblrMainPage(function(doc) {
             const alertDocument = createAlertDocument("成功", `成功添加${blogid}`);
-            navigationDocument.replaceDocument(alertDocument, getActiveDocument());
+            navigationDocument.replaceDocument(alertDocument, loading);
             if (searchPage) {
                 navigationDocument.removeDocument(searchPage);
             }
