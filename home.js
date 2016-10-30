@@ -18,7 +18,7 @@ var medias = `{
         },
         {
             "title":"Ximalaya",
-            "img":"${baseURL}/icons/netease_music.png"
+            "img":"${baseURL}/icons/ximalaya.png"
         }
     ]
 }`;

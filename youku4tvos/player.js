@@ -178,7 +178,10 @@ function getM3U8ByVid(vid, callback) {
         var cmd = "stream=" + xmlhttp_show.responseText;
         eval(cmd);
         var type = stream.streamtypes;
+        var t=type[type.length-1];
         console.log("type:"+type);
+        if (t=='hd') t='mp4';
+        console.log("auto choose type:"+t);
         var xmlhttp_play = new XMLHttpRequest();
         xmlhttp_play.open("GET", playurl, true);
         xmlhttp_play.addEventListener("load", function(event) {
@@ -197,7 +200,7 @@ function getM3U8ByVid(vid, callback) {
             cmd = "info=" + ssencode(vid, ep, oip, from);
             console.log(cmd);
             eval(cmd);
-            var murl = "http://pl.youku.com/playlist/m3u8?vid=" + vid + "&keyframe=1&ts=" + time + "&type=mp4" + "&ep="+info.fff + "&oip=" + oip + "&ctype=12&ev=1&token="+info.token+"&sid="+info.sid;
+            var murl = "http://pl.youku.com/playlist/m3u8?vid=" + vid + "&keyframe=1&ts=" + time + "&type=" + t + "&ep="+info.fff + "&oip=" + oip + "&ctype=12&ev=1&token="+info.token+"&sid="+info.sid;
             console.log(murl);
             callback(murl);
         }, false);
