@@ -1,5 +1,4 @@
 var musicListURL;
-var player = new Player();
 
 function mydecode(string) {
     return string.replace(/&#039;/g, '\'');

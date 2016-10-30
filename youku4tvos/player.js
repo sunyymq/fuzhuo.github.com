@@ -69,7 +69,8 @@ function youku_play(detail_data, series_data, index, m3u8_url) {
     video.artworkImageURL = series_data[index]['img'];
     video.description = detail_data['desc'];
     video.title = detail_data['title'];
-    video.subtitle = series_data[index]['title'];
+    if (detail_data['cats']=='电影') video.subtitle = series_data[index]['title'];
+    else video.subtitle = detail_data['title'];
 
     var video_id = series_data[index]['videoid'];
     if (detail_data['cats']=='电影') video_id=detail_data['videoid'];

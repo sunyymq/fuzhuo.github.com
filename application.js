@@ -2,6 +2,18 @@
  * zfu github.com/fuzhuo
  * https://fuzhuo.me
  */
+//The global player for lava and netease music
+var player = new Player();
+player.addEventListener('stateDidChange', function(listener, extraInfo) {
+    if (listener.state == 'end' || listener.state == 'paused') {
+        console.log("Enable auto sleep");
+        JSB.enableAutoSleep();
+    } else {
+        console.log("disable auto sleep");
+        JSB.disableAutoSleep();
+    }
+},{});
+
 var baseURL;
 App.onLaunch = function(options) {
     var l = options.location;
