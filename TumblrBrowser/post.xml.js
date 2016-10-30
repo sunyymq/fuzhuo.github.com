@@ -62,13 +62,13 @@ var getPostDocWithUID = function(uid, page=0, callback) {
 					   <subtitle><![CDATA[长按${item['reblogged_from_name']}]]></subtitle>
                        <overlay style="padding: 0">
                        <title style="background-color: rgba(0,0,0,0.4); color: #FFFFFF; text-align: center;font-size: 22">图片${item['photos'].length}张</title>
-                       </overlay>`;                                                                        
+                       </overlay>`;
                 } else {
                     text += `
 					   <title><![CDATA[${item['blog_name']}]]></title>
                        <overlay style="padding: 0">
                        <title style="background-color: rgba(0,0,0,0.4); color: #FFFFFF; text-align: center;font-size: 22">图片${item['photos'].length}张</title>
-                       </overlay>`;                                                                        
+                       </overlay>`;
                 }
                 text += `
 					</lockup>`;
@@ -82,13 +82,13 @@ var getPostDocWithUID = function(uid, page=0, callback) {
 					   <subtitle><![CDATA[长按${item['reblogged_from_name']}]]></subtitle>
                        <overlay style="padding: 0">
                        <title style="background-color: rgba(0,0,0,0.4); color: #FFFFFF; text-align: center;font-size: 22">文字</title>
-                       </overlay>`;                                                                        
+                       </overlay>`;
                 } else {
                     text += `
 					   <title><![CDATA[${item['title']}]]></title>
                        <overlay style="padding: 0">
                        <title style="background-color: rgba(0,0,0,0.4); color: #FFFFFF; text-align: center;font-size: 22">文字</title>
-                       </overlay>`;                                                                        
+                       </overlay>`;
                 }
                 text += `
 					</lockup>`;
@@ -166,11 +166,11 @@ var addDecodeFunc = function(){
     this.REGX_HTML_DECODE = /&\w+;|&#(\d+);/g;
     this.REGX_TRIM = /(^\s*)|(\s*$)/g;
     this.HTML_DECODE = {
-        "&lt;" : "<", 
-        "&gt;" : ">", 
-        "&amp;" : "&", 
-        "&nbsp;": " ", 
-        "&quot;": "\"", 
+        "&lt;" : "<",
+        "&gt;" : ">",
+        "&amp;" : "&",
+        "&nbsp;": " ",
+        "&quot;": "\"",
         "©": ""
 
         // Add more
@@ -179,7 +179,7 @@ var addDecodeFunc = function(){
     this.encodeHtml = function(s){
         s = (s != undefined) ? s : this.toString();
         return (typeof s != "string") ? s :
-            s.replace(this.REGX_HTML_ENCODE, 
+            s.replace(this.REGX_HTML_ENCODE,
                       function($0){
                           var c = $0.charCodeAt(0), r = ["&#"];
                           c = (c == 0x20) ? 0xA0 : c;
@@ -228,7 +228,7 @@ var addDecodeFunc = function(){
         }
         this.__hash__ = hash;
 
-        return this.__hash__; 
+        return this.__hash__;
     };
 }
 

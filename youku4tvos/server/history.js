@@ -10,7 +10,7 @@ function history_func(index, callback) {
     for(var key in data) {
         rdata.push(key);
     }
-    
+
     var docText = `
     <document>
        <stackTemplate>

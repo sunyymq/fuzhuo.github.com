@@ -19,7 +19,7 @@ function encrypted_id($dfsid) {
     $raw_code = base64_encode(md5($dfsid, true));
     $code = str_replace(array('/', '+'), array('_', '-'), $raw_code);
     return $code;
-} 
+}
 
 function rp($ori) {
     return htmlspecialchars($ori,ENT_COMPAT);

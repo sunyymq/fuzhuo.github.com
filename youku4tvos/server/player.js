@@ -45,7 +45,7 @@ function play(detail_data, series_data, index, m3u8_url) {
     video.description = detail_data['desc'];
     video.title = detail_data['title'];
     video.subtitle = series_data[index]['title'];
-    
+
     var video_id = series_data[index]['videoid'];
     if (detail_data['cats']=='电影') video_id=detail_data['videoid'];
     var progress_str = localStorage.getItem("progress");
@@ -65,7 +65,7 @@ function play(detail_data, series_data, index, m3u8_url) {
                               //console.log('time did changed: interval:'+listener.interval+' time:'+listener.time+' timeStamp:'+listener.timeStamp+' type:'+listener.type);
                               progressData[video_id] = listener.time;
                               },{interval: 1});
-    
+
     myPlayer.addEventListener('stateDidChange', function(listener, extraInfo) {
                               //console.log("stateDidChange: state:"+listener.state+", oldState:"+listener.oldState+", timeStamp:"+listener.timeStamp);
                               //console.log("progress: "+JSON.stringify(progressData));

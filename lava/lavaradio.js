@@ -47,7 +47,7 @@ function playVideo(url,title,img_url) {
 }
 
 function loadingDoc() {
-    var template = '<document><loadingTemplate><activityIndicator><text>LavaRadio加载中</text></activityIndicator></loadingTemplate></document>'; 
+    var template = '<document><loadingTemplate><activityIndicator><text>LavaRadio加载中</text></activityIndicator></loadingTemplate></document>';
     var templateParser = new DOMParser();
     var parsedTemplate = templateParser.parseFromString(template, "application/xml");
     return parsedTemplate;
@@ -68,7 +68,7 @@ function getDocument(extension) {
     var url = baseURL + extension;
     var loadingScreen = loadingDoc();
     log("getDocument "+extension);
-    
+
     navigationDocument.pushDocument(loadingScreen);
     templateXHR.responseType = "document";
     templateXHR.addEventListener("load", function() {

@@ -15,6 +15,10 @@ var medias = `{
         {
             "title":"NetEaseMusic",
             "img":"${baseURL}/icons/netease_music.png"
+        },
+        {
+            "title":"Ximalaya",
+            "img":"${baseURL}/icons/netease_music.png"
         }
     ]
 }`;
@@ -64,6 +68,8 @@ var showHomePage = function() {
                 showLavaHome();
             } else if (index == 3) {
                 showNetEaseMusicMainPage();
+            } else if (index == 4) {
+                showXimalayaMainMenuDoc();
             }
         });
         navigationDocument.replaceDocument(doc, getActiveDocument());

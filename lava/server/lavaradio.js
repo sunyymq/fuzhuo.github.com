@@ -13,10 +13,10 @@ App.onLaunch = function(options) {
     ].map(
         moduleName => `${baseURL}${moduleName}.js`
     );
-    
+
     const loadingDocument = createLoadingDocument("Lava加载中..");
     navigationDocument.pushDocument(loadingDocument);
-    
+
     for (let a of scripts) {
         console.log("scripts[]:"+a);
     }

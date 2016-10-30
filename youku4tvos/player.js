@@ -1,7 +1,8 @@
 function playByDataIndex(detail_data, series_data, index) {
     const seriesID = detail_data['showid'];
+    const complete = detail_data['completed'];
     var video_id="";
-    if (index == -1) {
+    if (index==-1 || index==-2) {
         let history_str = localStorage.getItem('history');
         var data = null;
         if (typeof history_str === 'undefined') {
@@ -11,18 +12,42 @@ function playByDataIndex(detail_data, series_data, index) {
         }
         var i=0;
         var find=0;
+        console.log("complete: "+complete);
         for(var d of series_data) {
             if (data[seriesID] == null) break;
             if (d['videoid'] == data[seriesID]['vid']) {
-                index=i;
+                console.log("history find at: " + i);
+                if (complete) {
+                    if(index==-2) index=i+1;
+                    else index=i;
+                } else {
+                    if (index==-2) index=i-1;
+                    else index=i;
+                }
                 find=1;
                 break;
             }
             i++;
         }
-        if (find==0) index=0;
+        if (find==0) {
+            if (complete) {
+                if (index==-1) index=0;
+                else index=1;
+            } else {
+                if (index==-1) index=series_data.length-1;
+                else index=series_data.length-2;
+            }
+        }
     }
     console.log("final index: "+index);
+    if (index<0 || index>series_data.length-1) {
+        console.log("该集不存在");
+        if (!complete) var text = "下一集并不存在，请等待更新";
+        else var text = "下一集不存在，你已看完该剧大结局";
+        var alertDoc = createAlertDocument("呃呃", text);
+        navigationDocument.pushDocument(alertDoc);
+        return;
+    }
     var video_id = series_data[index]['videoid'];
     if (detail_data['cats']=='电影') video_id=detail_data['videoid'];
     console.log("play sid:"+seriesID+",vid:"+video_id);
@@ -45,7 +70,7 @@ function youku_play(detail_data, series_data, index, m3u8_url) {
     video.description = detail_data['desc'];
     video.title = detail_data['title'];
     video.subtitle = series_data[index]['title'];
-    
+
     var video_id = series_data[index]['videoid'];
     if (detail_data['cats']=='电影') video_id=detail_data['videoid'];
     var progress_str = localStorage.getItem("progress");
@@ -65,7 +90,7 @@ function youku_play(detail_data, series_data, index, m3u8_url) {
                               //console.log('time did changed: interval:'+listener.interval+' time:'+listener.time+' timeStamp:'+listener.timeStamp+' type:'+listener.type);
                               progressData[video_id] = listener.time;
                               },{interval: 1});
-    
+
     myPlayer.addEventListener('stateDidChange', function(listener, extraInfo) {
                               //console.log("stateDidChange: state:"+listener.state+", oldState:"+listener.oldState+", timeStamp:"+listener.timeStamp);
                               //console.log("progress: "+JSON.stringify(progressData));
@@ -86,6 +111,8 @@ function updateHistory(detail_data, series_data, index, m3u8_url) {
     console.log("update History");
     if (seriesDoc) {
         let ele = seriesDoc.getElementById("history_text");
+        let continue_title = seriesDoc.getElementById("continue_play");
+        continue_title.textContent = "继续播放";
         let title = ele.getElementsByTagName("text").item(0);
         if (detail_data['cats']!='电影') {
             title.textContent = `上次看到『${series_data[index]['title']}』`;

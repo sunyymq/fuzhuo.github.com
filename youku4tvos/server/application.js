@@ -13,10 +13,10 @@ App.onLaunch = function(options) {
     ].map(
         moduleName => `${baseURL}${moduleName}.js`
     );
-    
+
     const loadingDocument = createLoadingDocument("优酷加载中..");
     navigationDocument.pushDocument(loadingDocument);
-    
+
     for (let a of scripts) {
         console.log("scripts[]:"+a);
     }
@@ -138,4 +138,4 @@ function time2str(time) {
     var s = a;
     if (h>0) return ''+padLeft(h,2)+":"+padLeft(m,2)+":"+padLeft(s,2);
     else return ''+padLeft(m,2)+":"+padLeft(s,2);
-}        
+}

@@ -19,14 +19,15 @@ App.onLaunch = function(options) {
         "lava/home.xml",
         "lava/channel.xml",
         "netease_music_tvos/main_page.xml",
-        "netease_music_tvos/music_list.xml"
+        "netease_music_tvos/music_list.xml",
+        "ximalaya/ximalaya.xml"
     ].map(
         moduleName => `${baseURL}${moduleName}.js`
     );
-    
-    const loadingDocument = createLoadingDocument("MediaHub加载中..");
+
+    const loadingDocument = createLoadingDocument("LazyCat加载中..");
     navigationDocument.pushDocument(loadingDocument);
-    
+
     for (let a of scripts) {
         console.log("scripts[]:"+a);
     }
@@ -34,6 +35,7 @@ App.onLaunch = function(options) {
         if (scriptsAreLoaded) {
             console.log("scripts are loaded");
             showHomePage();
+            //showXimalayaMainMenuDoc();
         } else {
             const alertDocument = createEvalErrorAlertDocument();
             navigationDocument.replaceDocument(alertDocument, loadingDocument);

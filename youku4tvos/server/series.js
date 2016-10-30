@@ -59,7 +59,7 @@ function createSeriesDoc(serieID, callback) {
                             <text>VIP</text>`;
             }
                 history = localStorage.getItem('history');
-                docText += `      
+                docText += `
     		                <badge src="resource://cc" class="badge" />
     		            </row>
     		            <row>
@@ -137,7 +137,7 @@ function createSeriesDoc(serieID, callback) {
                 var progress_title = "未观看";
                 if (progress && progress[value['videoid']]) {
                     progress_title = time2str(progress[value['videoid']]);
-                }                    
+                }
                 docText +=`
                             <lockup index="${i}">
     		                    <img src="${value['img']}" width="150" height="226" />

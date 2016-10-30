@@ -7,7 +7,7 @@ function log(str) {
 }
 
 function warningDoc(text) {
-    var template = `<document><loadingTemplate><activityIndicator><text>${text}</text></activityIndicator></loadingTemplate></document>`; 
+    var template = `<document><loadingTemplate><activityIndicator><text>${text}</text></activityIndicator></loadingTemplate></document>`;
     var templateParser = new DOMParser();
     var parsedTemplate = templateParser.parseFromString(template, "application/xml");
     return parsedTemplate;
@@ -61,7 +61,7 @@ function playMusicList(music_list_url_) {
 }
 
 function loadingDoc() {
-    var template = '<document><loadingTemplate><activityIndicator><text>加载中</text></activityIndicator></loadingTemplate></document>'; 
+    var template = '<document><loadingTemplate><activityIndicator><text>加载中</text></activityIndicator></loadingTemplate></document>';
     var templateParser = new DOMParser();
     var parsedTemplate = templateParser.parseFromString(template, "application/xml");
     return parsedTemplate;
@@ -81,7 +81,7 @@ function postDoc(extension, data) {
     var templateXHR = new XMLHttpRequest();
     var url = baseURL + extension;
     log("postDoc"+extension+',post data:'+JSON.stringify(data));
-    
+
     templateXHR.responseType = "document";
     templateXHR.addEventListener("load", function() {
         var currentDoc = getActiveDocument();
@@ -97,7 +97,7 @@ function getDocument(extension) {
     var url = baseURL + extension;
     var loadingScreen = loadingDoc();
     log("getDocument "+extension);
-    
+
     navigationDocument.pushDocument(loadingScreen);
     templateXHR.responseType = "document";
     templateXHR.addEventListener("load", function() {
