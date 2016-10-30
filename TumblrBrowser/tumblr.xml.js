@@ -62,7 +62,7 @@ function addItemPage() {
             <formTemplate>
             <banner>
                 <img src="Car_Movie_800X400.png" width="800" height="400"/>
-                <description>输入博客名</description>
+                <description><![CDATA[输入博客名如输入"guanbo"来加入tumblr官方博客]]></description>
             </banner>
             <textField id="blogid"></textField>
             <footer>
