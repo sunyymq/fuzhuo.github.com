@@ -168,7 +168,7 @@ function getM3U8ByVid(vid, callback) {
     console.log("vid:"+vid);
     var time = (new Date()).getTime().toString().substr(0,10);
     console.log("time:"+time);
-    var playurl = "http://play.youku.com/play/get.json?ct=12&vid=" + vid;
+    var playurl = "http://play.youku.com/play/get.json?vid=" + vid +"&ct=12";
     var show_url = "http://openapi.youku.com/v2/videos/show.json?video_id=" + vid + "&client_id=5a0c663f5e98bc74";
     console.log("playurl: " + playurl);
     console.log("show_url: " + show_url);
@@ -182,10 +182,14 @@ function getM3U8ByVid(vid, callback) {
         console.log("type:"+type);
         if (t=='hd') t='mp4';
         console.log("auto choose type:"+t);
+        /*
         var xmlhttp_play = new XMLHttpRequest();
         xmlhttp_play.open("GET", playurl, true);
         xmlhttp_play.addEventListener("load", function(event) {
             cmd = "infoss="+xmlhttp_play.responseText;
+        */
+        /*
+        cmd = "infoss="+JSB.httpGet(playurl, 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/28.0.1500.71 Safari/537.36','http://static.youku.com', '__ysuid='+((new Date()).getTime()/1000).toString().substr(0,13));
             eval(cmd);
             if (!infoss || !infoss.data || !infoss.data.security
                 || !infoss.data.security.ip || !infoss.data.security.encrypt_string) {
@@ -201,11 +205,15 @@ function getM3U8ByVid(vid, callback) {
             console.log(cmd);
             eval(cmd);
             var murl = "http://pl.youku.com/playlist/m3u8?vid=" + vid + "&keyframe=1&ts=" + time + "&type=" + t + "&ep="+info.fff + "&oip=" + oip + "&ctype=12&ev=1&token="+info.token+"&sid="+info.sid;
+        */
+            var murl = "http://ilools.sinaapp.com/youkufull.php?vid=" + vid + "&qua=" + t;
             console.log(murl);
             callback(murl);
+        /*
         }, false);
         xmlhttp_play.setRequestHeader('refer', 'http://play.youku.com');
         xmlhttp_play.send(null);
+        */
     }, false);
     xmlhttp_show.send(null);
 }
