@@ -32,7 +32,10 @@ App.onLaunch = function(options) {
         "lava/channel.xml",
         "netease_music_tvos/main_page.xml",
         "netease_music_tvos/music_list.xml",
-        "ximalaya/ximalaya.xml"
+        "ximalaya/ximalaya.xml",
+        "ximalaya/category.xml",
+        "ximalaya/category_albums.xml",
+        "ximalaya/album.xml"
     ].map(
         moduleName => `${baseURL}${moduleName}.js`
     );

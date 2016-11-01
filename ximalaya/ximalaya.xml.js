@@ -59,7 +59,7 @@ var ximalayaRecommend = function(title, callback) {
                         <section>`;
             for(var j in list[i]['list']) {
                 docText += `
-                            <lockup>
+                            <lockup onselect="showAlbum('${list[i]['list'][j]['albumId']}')">
                                 <img src="${list[i]['list'][j]['coverLarge']}" width="350" height="350" />
                                 <title><![CDATA[${list[i]['list'][j]['title']}]]></title>`;
                 if (list[i]['list'][j]['isPaid']) {
@@ -71,11 +71,13 @@ var ximalayaRecommend = function(title, callback) {
                 docText += `
                             </lockup>`;
             }
+            if (list[i]['hasMore']) {
                 docText += `
-                            <lockup>
+                            <lockup onselect="showCategory(${list[i]['categoryId']},'${list[i]['title']}')">
                                 <img src="" width="350" height="350" />
                                 <title>更多..</title>
                             </lockup>`;
+            }
             docText += `
                         </section>
                      </shelf>`;
