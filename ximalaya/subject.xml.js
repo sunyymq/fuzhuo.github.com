@@ -1,10 +1,5 @@
-function getCategoryAlbumsDoc(categoryID, keywordID, title, callback) {
-    var url;
-    if (keywordID=='moduleType3') {
-        url = `http://mobile.ximalaya.com/mobile/discovery/v1/category/filter/albums?calcDimension=hot&categoryId=${categoryID}&device=iPhone&pageId=1&pageSize=20&version=5.4.45`;
-    } else {
-        url = `http://mobile.ximalaya.com/mobile/discovery/v1/category/filter/albums?calcDimension=hot&categoryId=${categoryID}&keywordId=${keywordID}&device=iPhone&pageId=1&pageSize=20&version=5.4.45`;
-    }
+function getSubjectDoc(categoryId, title, callback) {
+    var url=`http://mobile.ximalaya.com/mobile/discovery/v2/category/subjects?categoryId=${categoryId}&device=iPhone&page=1&per_page=20&scale=3`;
     getHTTP(url, function(content){
         var data = JSON.parse(content)['list'];
         var docText = `<?xml version="1.0" encoding="UTF-8" ?>
@@ -29,12 +24,13 @@ function getCategoryAlbumsDoc(categoryID, keywordID, title, callback) {
                     <grid>
                         <section>`;
         var list = data;
-        for(var i in list) {
-            var imgpath=data[i]['coverLarge'];
+        for(var i in list) {//the only value is specialId
+            var imgpath=list[i]['coverPathBig'];
             docText += `
-                            <lockup onselect="showAlbum(${list[i]['albumId']})">
+                            <lockup onselect="showSpecial(${list[i]['specialId']})">
                                 <img src="${imgpath}" width="350" height="350" />
-                                <title><![CDATA[${list[i]['title']}]]></title>`;
+                                <title><![CDATA[${list[i]['title']}]]></title>
+                                <subtitle><![CDATA[${list[i]['subtitle']}]]></subtitle>`;
             if (list[i]['isPaid']) {
                 docText += `
                                   <overlay class="overlay">
@@ -55,10 +51,10 @@ function getCategoryAlbumsDoc(categoryID, keywordID, title, callback) {
     });
 }
 
-function showCategoryAlbums(categoryID, keywordID, title) {
+function showSubject(categoryId, title) {
     const loadingDocument = createLoadingDocument("Ximalaya加载中..");
     navigationDocument.pushDocument(loadingDocument);
-    getCategoryAlbumsDoc(categoryID, keywordID, title, function(doc){
+    getSubjectDoc(categoryId, title, function(doc){
         navigationDocument.replaceDocument(doc, loadingDocument);
     });
 }

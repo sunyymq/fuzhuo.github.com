@@ -1,12 +1,8 @@
-function getCategoryAlbumsDoc(categoryID, keywordID, title, callback) {
-    var url;
-    if (keywordID=='moduleType3') {
-        url = `http://mobile.ximalaya.com/mobile/discovery/v1/category/filter/albums?calcDimension=hot&categoryId=${categoryID}&device=iPhone&pageId=1&pageSize=20&version=5.4.45`;
-    } else {
-        url = `http://mobile.ximalaya.com/mobile/discovery/v1/category/filter/albums?calcDimension=hot&categoryId=${categoryID}&keywordId=${keywordID}&device=iPhone&pageId=1&pageSize=20&version=5.4.45`;
-    }
-    getHTTP(url, function(content){
-        var data = JSON.parse(content)['list'];
+function getSpecialDoc(specialId, callback) {
+    var url=`http://mobile.ximalaya.com/m/subject_detail`;
+    var postData=`id=${specialId}`;
+    postHTTP(url, postData, function(content){
+        var data = JSON.parse(content);
         var docText = `<?xml version="1.0" encoding="UTF-8" ?>
             <document>
               <head>
@@ -23,19 +19,20 @@ function getCategoryAlbumsDoc(categoryID, keywordID, title, callback) {
               </head>
                <stackTemplate>
                   <banner>
-                    <title><![CDATA[${title}]]></title>
+                    <title><![CDATA[${data['info']['title']}]]></title>
                   </banner>
                   <collectionList>
                     <grid>
                         <section>`;
-        var list = data;
-        for(var i in list) {
-            var imgpath=data[i]['coverLarge'];
+        var list = data['list'];
+        for(var i in list) {//the only value is specialId
+            var imgpath=list[i]['albumCoverUrl290'];
             docText += `
                             <lockup onselect="showAlbum(${list[i]['albumId']})">
                                 <img src="${imgpath}" width="350" height="350" />
-                                <title><![CDATA[${list[i]['title']}]]></title>`;
-            if (list[i]['isPaid']) {
+                                <title><![CDATA[${list[i]['title']}]]></title>
+                                <subtitle><![CDATA[${list[i]['intro']}]]></subtitle>`;
+            if (list[i]['priceTypeId']!=0) {
                 docText += `
                                   <overlay class="overlay">
                                       <title class="overlay_title">付费</title>
@@ -55,10 +52,10 @@ function getCategoryAlbumsDoc(categoryID, keywordID, title, callback) {
     });
 }
 
-function showCategoryAlbums(categoryID, keywordID, title) {
+function showSpecial(specialId) {
     const loadingDocument = createLoadingDocument("Ximalaya加载中..");
     navigationDocument.pushDocument(loadingDocument);
-    getCategoryAlbumsDoc(categoryID, keywordID, title, function(doc){
+    getSpecialDoc(specialId, function(doc){
         navigationDocument.replaceDocument(doc, loadingDocument);
     });
 }

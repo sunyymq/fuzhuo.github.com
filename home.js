@@ -2,22 +2,27 @@ var medias = `{
     "data": [
         {
             "title":"youku",
+            "subtitle":"",
             "img":"${baseURL}/icons/youku.png"
         },
         {
             "title":"Tumblr",
+            "subtitle":"",
             "img":"${baseURL}/icons/tumblr.png"
         },
         {
             "title":"lava",
+            "subtitle":"",
             "img":"${baseURL}/icons/lava.png"
         },
         {
             "title":"NetEaseMusic",
+            "subtitle":"",
             "img":"${baseURL}/icons/netease_music.png"
         },
         {
             "title":"Ximalaya",
+            "subtitle":"完成热门界面及播放",
             "img":"${baseURL}/icons/ximalaya.png"
         }
     ]
@@ -40,6 +45,7 @@ var getHomeDoc = function(callback) {
                        <lockup index="${i}">
                           <img src="${media_data['data'][i]['img']}" width="400" height="240" />
                           <title>${media_data['data'][i]['title']}</title>
+                          <subtitle>${media_data['data'][i]['subtitle']}</subtitle>
                        </lockup>`;
     }
     docText += `

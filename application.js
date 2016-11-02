@@ -35,6 +35,8 @@ App.onLaunch = function(options) {
         "ximalaya/ximalaya.xml",
         "ximalaya/category.xml",
         "ximalaya/category_albums.xml",
+        "ximalaya/subject.xml",
+        "ximalaya/speciallist.xml",
         "ximalaya/album.xml"
     ].map(
         moduleName => `${baseURL}${moduleName}.js`
@@ -95,7 +97,7 @@ function postHTTP(url, postData, callback) {
         const alertDocument = createAlertDocument("请求错误", `<![CDATA[未能成功拉取:${url}]]>`);
         navigationDocument.pushDocument(alertDocument);
     }, false);
-    templateXHR.open("GET", url, true);
+    templateXHR.open("POST", url, true);
     templateXHR.send(postData);
 }
 

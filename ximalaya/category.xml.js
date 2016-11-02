@@ -23,6 +23,7 @@ function getCategoryDoc(categoryID, title, callback) {
                   <collectionList>`;
         const list = data;
         for(var i in list) {
+            if (i==0) continue;
             docText += `
                      <shelf>
                         <header>
@@ -35,8 +36,14 @@ function getCategoryDoc(categoryID, title, callback) {
                 else if (list[i]['list'][j]['coverPath']) imgpath = list[i]['list'][j]['coverPath'];
                 else if (list[i]['list'][j]['coverPathBig']) imgpath = list[i]['list'][j]['coverPathBig'];
                 else imgpath = list[i]['list'][j]['coverPathSmall'];
+                if (list[i]['moduleType']==4) {//精品,读取subjects
+                    docText += `
+                            <lockup onselect="showSpecial(${list[i]['list'][j]['specialId']})">`;
+                } else {
+                    docText += `
+                            <lockup onselect="showAlbum(${list[i]['list'][j]['albumId']})">`;
+                }
                 docText += `
-                            <lockup onselect="showAlbum(${list[i]['list'][j]['albumId']})">
                                 <img src="${imgpath}" width="350" height="350" />
                                 <title><![CDATA[${list[i]['list'][j]['title']}]]></title>`;
                 if (list[i]['list'][j]['isPaid']) {
@@ -49,8 +56,17 @@ function getCategoryDoc(categoryID, title, callback) {
                             </lockup>`;
             }
             if (list[i]['hasMore']==true) {
+                if (list[i]['moduleType']==3) {//热播,不需要keyword
+                    docText += `
+                            <lockup onselect="showCategoryAlbums(${categoryID},'moduleType3','${list[i]['title']}')">`;
+                } else if (list[i]['moduleType']==4) {//精品,读取subjects
+                    docText += `
+                            <lockup onselect="showSubject(${categoryID},'${list[i]['title']}')">`;
+                } else {//moduleType 5
+                    docText += `
+                            <lockup onselect="showCategoryAlbums(${categoryID},${list[i]['keywordId']},'${list[i]['title']}')">`;
+                }
                 docText += `
-                            <lockup onselect="showCategoryAlbums(${categoryID},'${list[i]['title']}')">
                                 <img src="" width="350" height="350" />
                                 <title>更多..</title>
                             </lockup>`;
