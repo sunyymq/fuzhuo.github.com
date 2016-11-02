@@ -66,7 +66,7 @@ function getAlbumDoc(albumId, callback) {
                 for (var j in list) {
                     docText += `
                                     <lockup index="${j}" onselect="ximaPlay(${albumId},'${j}')">
-                                        <img src="${list[j]['smallLogo']}" width="150" height="226" />
+                                        <img src="${list[j]['coverMiddle']}" width="150" height="226" />
                                         <title><![CDATA[${list[j]['title']}]]></title>
                                     </lockup>`;
                 }
