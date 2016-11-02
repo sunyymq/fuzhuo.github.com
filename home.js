@@ -22,7 +22,7 @@ var medias = `{
         },
         {
             "title":"Ximalaya",
-            "subtitle":"完成热门界面及播放",
+            "subtitle":"功能可用已基本完成了，除搜索与历史,付费的竟然也可以。。。",
             "img":"${baseURL}/icons/ximalaya.png"
         }
     ]

@@ -119,7 +119,7 @@ var ximalayaCategories = function(title, callback) {
         for (var key in data) {
             if (key==0) continue;
             docText += `
-                           <lockup style="background-color: rgba(1,1,1,1)">
+                           <lockup onselect="showCategory(${data[key]['id']},'${data[key]['title']}')">
                              <img src="${data[key]['coverPath']}" width="178" height="178" />
                              <title><![CDATA[${data[key]['title']}]]></title>
                            </lockup>`;
@@ -161,8 +161,9 @@ var ximalayaRankingList = function(title, callback) {
                      <grid>
                         <section>`;
         for (var key in list) {
+            const rankingListId = list[key]['rankingListId'];
             docText += `
-                           <lockup>
+                           <lockup onselect="showRankingList(${rankingListId},0)">
                              <img src="${list[key]['coverPath']}" width="228" height="228" />
                              <title><![CDATA[${list[key]['title']}]]></title>
                              <subtitle><![CDATA[${list[key]['subtitle']}]]></subtitle>
@@ -212,14 +213,14 @@ var ximalayaAuthors = function(title, callback) {
                         <section>`;
             for(var j in list[i]['list']) {
                 docText += `
-                            <lockup>
+                            <lockup onselect="showAuthorDetail(${list[i]['list'][j]['uid']})">
                                 <img src="${list[i]['list'][j]['largeLogo']}" width="198" height="198" />
                                 <title><![CDATA[${list[i]['list'][j]['nickname']}]]></title>
                                 <subtitle><![CDATA[${list[i]['list'][j]['verifyTitle']}]]></subtitle>
                             </lockup>`;
             }
-                docText += `
-                            <lockup>
+            docText += `
+                            <lockup onselect="showAuthors(${list[i]['id']},'${list[i]['title']}')">
                                 <img src="" width="200" height="200" />
                                 <title>更多..</title>
                             </lockup>`;
@@ -237,14 +238,14 @@ var ximalayaAuthors = function(title, callback) {
                         <section>`;
             for(var j in list[i]['list']) {
                 docText += `
-                            <lockup>
+                            <lockup onselect="showAuthorDetail(${list[i]['list'][j]['uid']})">
                                 <img src="${list[i]['list'][j]['largeLogo']}" width="198" height="198" />
                                 <title><![CDATA[${list[i]['list'][j]['nickname']}]]></title>
                                 <subtitle><![CDATA[${list[i]['list'][j]['personDescribe']}]]></subtitle>
                             </lockup>`;
             }
                 docText += `
-                            <lockup>
+                            <lockup onselect="showAuthors(${list[i]['id']},'${list[i]['title']}')">
                                 <img src="" width="200" height="200" />
                                 <title>更多..</title>
                             </lockup>`;

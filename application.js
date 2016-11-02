@@ -37,6 +37,8 @@ App.onLaunch = function(options) {
         "ximalaya/category_albums.xml",
         "ximalaya/subject.xml",
         "ximalaya/speciallist.xml",
+        "ximalaya/ranklist.xml",
+        "ximalaya/authors.xml",
         "ximalaya/album.xml"
     ].map(
         moduleName => `${baseURL}${moduleName}.js`
