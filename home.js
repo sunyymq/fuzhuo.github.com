@@ -22,8 +22,13 @@ var medias = `{
         },
         {
             "title":"Ximalaya",
-            "subtitle":"功能可用已基本完成了，除搜索与历史,付费的竟然也可以。。。",
+            "subtitle":"功能可用,付费竟然也可以。。。",
             "img":"${baseURL}/icons/ximalaya.png"
+        },
+        {
+            "title":"ero-video.net",
+            "subtitle":"18禁",
+            "img":"${baseURL}/icons/ero.png"
         }
     ]
 }`;
@@ -76,6 +81,8 @@ var showHomePage = function() {
                 showNetEaseMusicMainPage();
             } else if (index == 4) {
                 showXimalayaMainMenuDoc();
+            } else if (index == 5) {
+                showEroHome(1, "", true);
             }
         });
         navigationDocument.replaceDocument(doc, getActiveDocument());
