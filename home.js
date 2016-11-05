@@ -22,12 +22,12 @@ var medias = `{
         },
         {
             "title":"Ximalaya",
-            "subtitle":"功能可用,付费竟然也可以。。。",
+            "subtitle":"功能可用,VIP的竟也可以…",
             "img":"${baseURL}/icons/ximalaya.png"
         },
         {
             "title":"ero-video.net",
-            "subtitle":"18禁",
+            "subtitle":"Don't click",
             "img":"${baseURL}/icons/ero.png"
         }
     ]
