@@ -22,7 +22,7 @@ var medias = `{
         },
         {
             "title":"Ximalaya",
-            "subtitle":"功能可用,VIP的竟也可以…",
+            "subtitle":"功能基本可用",
             "img":"${baseURL}/icons/ximalaya.png"
         }
     ]
