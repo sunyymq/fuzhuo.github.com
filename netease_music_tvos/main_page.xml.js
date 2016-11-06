@@ -157,8 +157,10 @@ function getNetEaseMusicMainPageDoc(callback) {
 }
 
 function showNetEaseMusicMainPage() {
+    var loading = createLoadingDocument();
+    navigationDocument.pushDocument(loading);
     getNetEaseMusicMainPageDoc(function(doc) {
-        navigationDocument.replaceDocument(doc, getActiveDocument());
+        navigationDocument.replaceDocument(doc, loading);
     });
 }
 

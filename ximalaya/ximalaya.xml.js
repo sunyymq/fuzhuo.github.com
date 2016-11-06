@@ -272,6 +272,8 @@ var ximalayaPageFuncs = [
 ];
 
 var showXimalayaMainMenuDoc = function() {
+    var loading = createLoadingDocument();
+    navigationDocument.pushDocument(loading);
     getXimalayaMainMenuDoc(function(doc) {
         const Elem = doc.getElementsByTagName("menuBar").item(0);
         Elem.addEventListener("select", (event)=> {
@@ -287,6 +289,6 @@ var showXimalayaMainMenuDoc = function() {
                 });
             }
         });
-        navigationDocument.replaceDocument(doc, getActiveDocument());
+        navigationDocument.replaceDocument(doc, loading);
     });
 }

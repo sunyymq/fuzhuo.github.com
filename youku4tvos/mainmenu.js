@@ -117,6 +117,8 @@ var mainmenuUI = function() {
 }
 
 function showMainMenu() {
+    var loading = createLoadingDocument();
+    navigationDocument.pushDocument(loading);
     mainDoc = mainmenuUI();
     const Elem = mainDoc.getElementsByTagName("menuBar").item(0);
     Elem.addEventListener("select", (event)=> {
@@ -132,7 +134,7 @@ function showMainMenu() {
                 });
             }
         });
-    navigationDocument.replaceDocument(mainDoc, getActiveDocument());
+    navigationDocument.replaceDocument(mainDoc, loading);
 }
 
 function refreshHistory() {

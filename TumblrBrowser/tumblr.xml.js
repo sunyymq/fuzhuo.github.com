@@ -43,6 +43,8 @@ var getTumblrMainPage = function(callback) {
 }
 
 function showTumblrMainPage() {
+    var loading = createLoadingDocument();
+    navigationDocument.pushDocument(loading);
     var favStr = localStorage.getItem('like');
     console.log("favStr: " + favStr);
     if (favStr == 'undefined' || favStr == null || typeof favStr === 'undefined') {
@@ -52,7 +54,7 @@ function showTumblrMainPage() {
     favData = JSON.parse(favStr);
     getTumblrMainPage(function(doc) {
         currentMainPage = doc;
-        navigationDocument.replaceDocument(doc, getActiveDocument());
+        navigationDocument.replaceDocument(doc, loading);
     });
 }
 

@@ -58,7 +58,9 @@ var getLavaHomeDoc = function(callback) {
 }
 
 var showLavaHome = function() {
+    var loading = createLoadingDocument();
+    navigationDocument.pushDocument(loading);
     getLavaHomeDoc(function(doc) {
-        navigationDocument.replaceDocument(doc, getActiveDocument());
+        navigationDocument.replaceDocument(doc, loading);
     });
 }
