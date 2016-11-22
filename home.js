@@ -30,16 +30,23 @@ var media_data = {
         },
         {
             "title":"Ximalaya",
-            "subtitle":"功能基本可用",
+            "subtitle":"",
             "show": true,
             "index": 4,
             "img":`${baseURL}/icons/ximalaya.png`
         },
         {
+            "title":"直播",
+            "subtitle":"",
+            "show": true,
+            "index": 5,
+            "img":`${baseURL}/icons/tv.png`
+        },
+        {
             "title":"Ero",
             "subtitle":"Don't Click",
             "show": false,
-            "index": 5,
+            "index": 6,
             "img":`${baseURL}/icons/ero.png`
         }
     ]
@@ -171,6 +178,8 @@ var showHomePage = function() {
             } else if (index == 4) {
                 showXimalayaMainMenuDoc();
             } else if (index == 5) {
+                showTVHome();
+            } else if (index == 6) {
                 showEroHome(1, "", false);
             } else {
                 return;

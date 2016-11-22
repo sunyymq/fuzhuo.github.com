@@ -40,6 +40,7 @@ App.onLaunch = function(options) {
         "ximalaya/ranklist.xml",
         "ximalaya/authors.xml",
         "ximalaya/album.xml",
+        "tv/tv.xml",
         "ero/home.xml"
     ].map(
         moduleName => `${baseURL}${moduleName}.js`
@@ -55,7 +56,6 @@ App.onLaunch = function(options) {
         if (scriptsAreLoaded) {
             console.log("scripts are loaded");
             showHomePage();
-            //showEroHome(1);
         } else {
             const alertDocument = createEvalErrorAlertDocument();
             navigationDocument.replaceDocument(alertDocument, loadingDocument);
