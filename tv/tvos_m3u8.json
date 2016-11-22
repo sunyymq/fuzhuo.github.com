@@ -3,21 +3,21 @@
     {
         "category":"央视",
         "content": [
-            {"name":"CCTV1综合","m3u8":"http://58.135.196.138:8090/live/db3bd108e3364bf3888ccaf8377af077/index.m3u8"},
-            {"name":"CCTV2财经","m3u8":"http://58.135.196.138:8090/live/e31fa63612644555a545781ea32e66d4/index.m3u8"},
-            {"name":"CCTV3综艺","m3u8":"http://58.135.196.138:8090/live/A68CE6833D654a9e932A657689463088/index.m3u8"},
-            {"name":"CCTV4中文国际(亚洲)","m3u8":"http://58.135.196.138:8090/live/56383AB184D54ac8B20478B6A43906DC/index.m3u8"},
-            {"name":"cctv5体育","m3u8":"http://58.135.196.138:8090/live/6b9e3889ec6e2ab1a8c7bd0845e5368a/index.m3u8"},
-            {"name":"CCTV6电影","m3u8":"http://58.135.196.138:8090/live/6132e9cb136050bd94822db31d1401af/index.m3u8"},
-            {"name":"CCTV7军事农业","m3u8":"http://58.135.196.138:8090/live/a9a97bed07eca008a1c88c9d7c74965d/index.m3u8"},
-            {"name":"CCTV8电视剧","m3u8":"http://58.135.196.138:8090/live/6e38d69416f160bad4657788d6c06c01/index.m3u8"},
-            {"name":"CCTV9纪录","m3u8":"http://58.135.196.138:8090/live/557a950d2cfcf2ee1aad5a260893c2b8/index.m3u8"},
-            {"name":"CCTV10科教","m3u8":"http://58.135.196.138:8090/live/a0effe8f31af0011b750e817c1b6e8c7/index.m3u8"},
-            {"name":"CCTV11戏曲","m3u8":"http://58.135.196.138:8090/live/2D5B4B7AB5A14d79A0D9A1D37540E2BF/index.m3u8"},
-            {"name":"CCTV12社会与法","m3u8":"http://58.135.196.138:8090/live/3720126fbea745f74c1c89df9797caac/index.m3u8"},
-            {"name":"CCTV13新闻","m3u8":"http://58.135.196.138:8090/live/5e02ac2a0829f7ab10d6543fdd211d8e/index.m3u8"},
-            {"name":"CCTV14少儿","m3u8":"http://58.135.196.138:8090/live/4A5DF0BA0C994081B02F8215491C4E48/index.m3u8"},
-            {"name":"CCTV15音乐","m3u8":"http://58.135.196.138:8090/live/ADBD55B50F2D47bb970DCCBAF458E6C8/index.m3u8"}
+            {"name":"CCTV-1HD","m3u8":"http://183.207.255.190:80/live/program/live/cctv1hd/2300000/mnf.m3u8"},
+            {"name":"CCTV-2","m3u8":"http://183.207.255.190:80/live/program/live/cctv2/1300000/mnf.m3u8"},
+            {"name":"CCTV-3","m3u8":"http://183.207.255.190:80/live/program/live/cctv3/1300000/mnf.m3u8"},
+            {"name":"CCTV-4","m3u8":"http://183.207.255.190:80/live/program/live/cctv4/1300000/mnf.m3u8"},
+            {"name":"CCTV-5","m3u8":"http://183.207.255.190:80/live/program/live/cctv5/1300000/mnf.m3u8"},
+            {"name":"CCTV-6","m3u8":"http://183.207.255.190:80/live/program/live/cctv6/1300000/mnf.m3u8"},
+            {"name":"CCTV-7","m3u8":"http://183.207.255.190:80/live/program/live/cctv7/1300000/mnf.m3u8"},
+            {"name":"CCTV-8","m3u8":"http://183.207.255.190:80/live/program/live/cctv8/1300000/mnf.m3u8"},
+            {"name":"CCTV-10","m3u8":"http://183.207.255.190:80/live/program/live/cctv10/1300000/mnf.m3u8"},
+            {"name":"CCTV-11","m3u8":"http://183.207.255.190:80/live/program/live/cctv11/1300000/mnf.m3u8"},
+            {"name":"CCTV-12","m3u8":"http://183.207.255.190:80/live/program/live/cctv12/1300000/mnf.m3u8"},
+            {"name":"CCTV-13","m3u8":"http://183.207.255.190:80/live/program/live/cctvxw/1300000/mnf.m3u8"},
+            {"name":"CCTV-14","m3u8":"http://183.207.255.190:80/live/program/live/cctvse//1300000/mnf.m3u8"},
+            {"name":"CCTV-15","m3u8":"http://183.207.255.190:80/live/program/live/cctvyy/1300000/mnf.m3u8"},
+            {"name":"东南卫视","m3u8":"http://183.207.255.190:80/live/program/live/dnws/1300000/mnf.m3u8"}
         ]
     },
     {
