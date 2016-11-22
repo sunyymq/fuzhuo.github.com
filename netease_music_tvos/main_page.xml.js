@@ -6,7 +6,7 @@ var str=`{
                 {"name":"华语","pic_url":"/img.png"},
                 {"name":"日语","pic_url":"/img.png"},
                 {"name":"韩语","pic_url":"/img.png"},
-                {"name":"奥语","pic_url":"/img.png"},
+                {"name":"粤语","pic_url":"/img.png"},
                 {"name":"小语种","pic_url":"/img.png"}
             ]
         },
