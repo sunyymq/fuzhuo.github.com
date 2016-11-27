@@ -44,7 +44,7 @@ var media_data = {
         },
         {
             "title":"PPTV",
-            "subtitle":"keep going..",
+            "subtitle":"",
             "show": true,
             "index": 6,
             "img":`${baseURL}/icons/pptv.png`
