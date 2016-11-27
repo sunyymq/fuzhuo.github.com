@@ -43,10 +43,17 @@ var media_data = {
             "img":`${baseURL}/icons/tv.png`
         },
         {
+            "title":"PPTV",
+            "subtitle":"keep going..",
+            "show": true,
+            "index": 6,
+            "img":`${baseURL}/icons/pptv.png`
+        },
+        {
             "title":"Ero",
             "subtitle":"Don't Click",
             "show": false,
-            "index": 6,
+            "index": 7,
             "img":`${baseURL}/icons/ero.png`
         }
     ]
@@ -180,6 +187,8 @@ var showHomePage = function() {
             } else if (index == 5) {
                 showTVHome();
             } else if (index == 6) {
+                showPPTVMainMenu();
+            } else if (index == 7) {
                 showEroHome(1, "", false);
             } else {
                 return;

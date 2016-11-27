@@ -97,9 +97,9 @@ function replacePageContent(index, page) {
 
 var mainmenuUI = function() {
     var tmp = `<?xml version="1.0" encoding="UTF-8" ?>
-		<document>
-			<menuBarTemplate>
-				<menuBar>`;
+        <document>
+            <menuBarTemplate>
+                <menuBar>`;
     let i=0;
     for(var d of channels['data']) {
         tmp+=`
@@ -108,10 +108,10 @@ var mainmenuUI = function() {
                     </menuItem>`;
         i++;
     }
-	tmp +=`
+    tmp +=`
                 </menuBar>
-			</menuBarTemplate>
-		</document>`;
+            </menuBarTemplate>
+        </document>`;
     console.log("mainmenu: "+tmp);
     return (new DOMParser).parseFromString(tmp, "application/xml");
 }

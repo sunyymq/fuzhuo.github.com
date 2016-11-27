@@ -53,14 +53,24 @@ function playByDataIndex(detail_data, series_data, index) {
     console.log("play sid:"+seriesID+",vid:"+video_id);
     var loadDoc = createLoadingDocument("尝试解码链接中...");
     navigationDocument.pushDocument(loadDoc);
-    getM3U8ByVid(video_id, function(m3u8) {
-        console.log("play by local..");
-        youku_play(detail_data, series_data, index, m3u8);
-        setTimeout(function(){
-            console.log("timeout remove loadDoc");
-            navigationDocument.removeDocument(loadDoc);
-        }, 1000);
-    });
+    if (detail_data['paid']) {
+        getYouKuM3U8FromUrl_VIP(`http://v.youku.com/v_show/id_${video_id}.html`, function(m3u8) {
+            youku_play(detail_data, series_data, index, m3u8);
+            setTimeout(function(){
+                console.log("timeout remove loadDoc");
+                navigationDocument.removeDocument(loadDoc);
+            }, 1000);
+        });
+    } else {
+        getM3U8ByVid(video_id, function(m3u8) {
+            console.log("play by local..");
+            youku_play(detail_data, series_data, index, m3u8);
+            setTimeout(function(){
+                console.log("timeout remove loadDoc");
+                navigationDocument.removeDocument(loadDoc);
+            }, 1000);
+        });
+    }
 }
 
 function youku_play(detail_data, series_data, index, m3u8_url) {
@@ -346,4 +356,25 @@ function ssencode(vid, ep, oip, from) {
     var fff = encodeURIComponent(D(E(F(bmka4 + eee + euserCachea2, [19, 1, 4, 7, 30, 14, 28, 8, 24, 17, 6, 35, 34, 16, 9, 10, 13, 22, 32, 29, 31, 21, 18, 3, 2, 23, 25, 27, 11, 20, 5, 15, 12, 0, 33, 26]).toString(), sid + "_" + vid + "_" + token + cook)));
     var sssd = '{"sid":"' + sid + '","token":"' + token + '","fff":"' + fff + '"}';
     return sssd;
+}
+
+function getYouKuM3U8FromUrl_VIP(fullurl, callback) {
+    var url1 = "http://www.xiguaso.com/api/yun.php?url="+fullurl;
+    //console.log("get m3u8 from: " + url1);
+    var xhr111 = new XMLHttpRequest();
+    xhr111.open("GET", url1, true);
+    xhr111.addEventListener("load", function (event) {
+        var data = /url": "([\s\S]*?)\"/.exec(xhr111.responseText);
+        data = data[1].replace("\\\/","/");
+        var newurl = "http://www.xiguaso.com/api/api.php?url="+data+"&hd=4";
+        //console.log("get m3u8 from: " + newurl);
+        var userAgent = 'Mozilla/5.0 (iPhone; CPU iPhone OS 10_0 like Mac OS X) AppleWebKit/602.1.38 (KHTML, like Gecko) Version/10.0 Mobile/14A300 Safari/602.1';
+        var text=JSB.httpGet(newurl, userAgent, "", '');
+        //console.log("text: " + text);
+        var ipadurl = /CDATA\[([\s\S]*?)\]/.exec(text);
+        ipadurl = ipadurl[1];
+        console.log("ipad url: " + ipadurl);
+        callback(ipadurl);
+    }, false);
+    xhr111.send(null);
 }

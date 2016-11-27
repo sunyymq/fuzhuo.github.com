@@ -41,6 +41,7 @@ App.onLaunch = function(options) {
         "ximalaya/authors.xml",
         "ximalaya/album.xml",
         "tv/tv.xml",
+        "pptv/pptvHome.xml",
         "ero/home.xml"
     ].map(
         moduleName => `${baseURL}${moduleName}.js`
