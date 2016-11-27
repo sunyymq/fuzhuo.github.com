@@ -7,8 +7,6 @@ var pptvChannels = {
         {"title":"动漫", "type":3, "page":1},
         {"title":"综艺", "type":4, "page":1},
         {"title":"VIP", "type":75099, "page":1},
-        {"title":"音乐", "type":75199, "page":1},
-        {"title":"纪实", "type":210548, "page":1}
     ]
 };
 
