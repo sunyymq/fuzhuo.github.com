@@ -1,5 +1,5 @@
-const YOUKU_HOST="http://tv.api.3g.youku.com/";
-const YOUKU_IDS="pid=0ce22bfd5ef5d2c5&guid=12d60728bd267e3e0b6ab4d124d6c5f0&ngdid=357e71ee78debf7340d29408b88c85c4&ver=2.6.0&operator=T-Mobile_310260&network=WIFI&launcher=0";
+var YOUKU_HOST="http://tv.api.3g.youku.com/";
+var YOUKU_IDS="pid=0ce22bfd5ef5d2c5&guid=12d60728bd267e3e0b6ab4d124d6c5f0&ngdid=357e71ee78debf7340d29408b88c85c4&ver=2.6.0&operator=T-Mobile_310260&network=WIFI&launcher=0";
 var mainDoc;
 
 var channels = {

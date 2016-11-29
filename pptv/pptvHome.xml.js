@@ -247,68 +247,71 @@ function getPPTVSeriesDoc(url, callback) {
 
     var docText= `
         <document>
-        <productTemplate>
-        <background>
-        </background>
-        <banner>
-        <infoList>
-        <info>
-        <header>
-        <title>导演</title>
-        </header>
-            <text><![CDATA[${results['director']}]]></text>
-        </info>
-        <info>
-        <header>
-        <title>主演</title>
-            </header>
-                <text>${results['actors']}</text>
-        </info>
-        </infoList>
-        <stack>
-        <title><![CDATA[${results['title']}]]></title>
-        <row>
-        <text><![CDATA[${results['year']}]]></text>
-        <text>${results['type']}</text>
-        <badge src="resource://cc" class="badge" />
-        </row>
-        <description handlesOverflow="true" allowsZooming="true" moreLabel="更多"><![CDATA[${results['desc']}]]></description>
-        <row>
-        <buttonLockup index="-1">
-        <badge src="resource://button-preview" />
-        </buttonLockup>`;
-    docText += `
-        </row>
-        </stack>
-        <heroImg src="${results['icon']}" />
-        </banner>
-        <shelf>
-        <header>
-        <title>${results['title']}</title>
-        </header>
-        <section>`;
+            <productTemplate>
+                <background>
+                </background>
+                <banner>
+                <infoList>
+                    <info>
+                        <header>
+                            <title>导演</title>
+                        </header>
+                        <text><![CDATA[${results['director']}]]></text>
+                    </info>
+                    <info>
+                        <header>
+                            <title>主演</title>
+                        </header>`;
+    docText +=`
+                        <text>${results['actors']}</text>
+        `;
+    docText +=`
+                    </info>
+                </infoList>
+                <stack>
+                    <title><![CDATA[${results['title']}]]></title>
+                    <row>
+                        <text><![CDATA[${results['year']}]]></text>
+                        <text>${results['type']}</text>
+                        <badge src="resource://cc" class="badge" />
+                    </row>
+                        <description handlesOverflow="true" allowsZooming="true" moreLabel="更多"><![CDATA[${results['desc']}]]></description>
+                    <row>
+                    <buttonLockup index="-1">
+                        <badge src="resource://button-preview" />
+                    </buttonLockup>`;
+        docText += `
+                    </row>
+                </stack>
+                    <heroImg src="${results['icon']}" />
+                </banner>
+                <shelf>
+                <header>
+                    <title>${results['title']}</title>
+                </header>
+                <section>`;
     if (results['data'].length > 0) {
         let i=0;
         for(var value of results['data']) {
             docText +=`
-                <lockup index="${i}">
-                    <img src="${value['img']}" width="150" height="226" />
-                    <title><![CDATA[${value['title']}]]></title>
-                </lockup>`;
+                    <lockup index="${i}">
+                        <img src="${value['img']}" width="150" height="226" />
+                        <title><![CDATA[${value['title']}]]></title>
+                    </lockup>`;
             i++;
         }
     } else {
         docText +=`
-                <lockup index="${results['pid']}">
-                    <img src="${results['icon']}" width="150" height="226" />
-                    <title><![CDATA[${results['title']}]]></title>
-                </lockup>`;
+                    <lockup index="${results['pid']}">
+                        <img src="${results['icon']}" width="150" height="226" />
+                        <title><![CDATA[${results['title']}]]></title>
+                    </lockup>`;
     }
     docText +=`
-        </section>
-        </shelf>
+                </section>
+            </shelf>
         </productTemplate>
-        </document>`;
+    </document>`;
     console.log("content:"+docText);
     callback((new DOMParser).parseFromString(docText, "application/xml"));
 }

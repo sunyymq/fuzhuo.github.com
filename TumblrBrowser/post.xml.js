@@ -1,6 +1,6 @@
-const TUMBLR_API_KEY='jrsCWX1XDuVxAFO4GkK147syAoN8BJZ5voz8tS80bPcj26Vc5Z';
-const TUMBLR_HOST='https://api.tumblr.com';
-const TUMBLR_POST_PAR='reblog_info=True';//&type=video';
+var TUMBLR_API_KEY='jrsCWX1XDuVxAFO4GkK147syAoN8BJZ5voz8tS80bPcj26Vc5Z';
+var TUMBLR_HOST='https://api.tumblr.com';
+var TUMBLR_POST_PAR='reblog_info=True';//&type=video';
 //https://api.tumblr.com/v2/blog/ziweia/posts?api_key=jrsCWX1XDuVxAFO4GkK147syAoN8BJZ5voz8tS80bPcj26Vc5Z&reblog_info=True&type=video
 
 var postDoc;

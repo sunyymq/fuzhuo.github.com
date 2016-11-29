@@ -15,9 +15,15 @@ player.addEventListener('stateDidChange', function(listener, extraInfo) {
 },{});
 
 var baseURL;
+var currentVersion;
+
 App.onLaunch = function(options) {
     var l = options.location;
     baseURL = l.substr(0,l.lastIndexOf('/')+1);
+    appStart(baseURL);
+}
+
+function appStart(baseURL) {
     console.log("Base URL is " + baseURL);
     const scripts = [
         "home",
@@ -47,6 +53,11 @@ App.onLaunch = function(options) {
     ].map(
         moduleName => `${baseURL}${moduleName}.js`
     );
+    getHTTP('version.json', function(data){
+        let j = JSON.parse(data);
+        currentVersion = j['version'];
+        console.log("current version: " + currentVersion);
+    });
 
     const loadingDocument = createLoadingDocument("LazyCat加载中..");
     navigationDocument.pushDocument(loadingDocument);
@@ -66,9 +77,46 @@ App.onLaunch = function(options) {
     });
 }
 
-function getHTTP(url, callback) {
-    var templateXHR = new XMLHttpRequest();
+App.onWillEnterForeground = function() {
+    console.log("app will enter foreground");
+    getHTTP('version.json', function(data){
+        const j = JSON.parse(data);
+        const version = j['version'];
+        if (version != currentVersion) {
+            const msg = j['message'];
+            console.log("find new version " + version + " current version: " + currentVersion);
+            console.log("What's new: " + msg);
+            const docText = `<?xml version="1.0" encoding="UTF-8" ?>
+                <document>
+                   <alertTemplate>
+                      <title>有可用更新</title>
+                      <description>从${currentVersion}更新至${version},更新日志:${msg}</description>
+                      <button onselect="updateVersion()">
+                         <text>点击更新并重载</text>
+                      </button>
+                   </alertTemplate>
+                </document>`;
+            var doc = (new DOMParser).parseFromString(docText, "application/xml");
+            navigationDocument.pushDocument(doc);
+        } else {
+            console.log("version on server is: " + version);
+        }
+    });
+}
+
+function updateVersion() {
+    console.log("update version");
+    navigationDocument.clear();
+    appStart(`${baseURL}`);
+}
+
+function getHTTP(url_, callback) {
+    var url = url_;
+    if (url.match(/^http/) == null) {
+        url = `${baseURL}${url_}`;
+    }
     console.log("getHTTP:"+url);
+    var templateXHR = new XMLHttpRequest();
     templateXHR.responseType = "document";
     templateXHR.timeout = 10000;
     templateXHR.addEventListener("load", function() {
