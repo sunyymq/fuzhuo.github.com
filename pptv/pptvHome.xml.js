@@ -7,6 +7,7 @@ var pptvChannels = {
         {"title":"动漫", "type":3, "page":1},
         {"title":"综艺", "type":4, "page":1},
         {"title":"VIP", "type":75099, "page":1},
+        {"title":"搜索", "type":-1, "page":1},
     ]
 };
 
@@ -107,11 +108,7 @@ var pptvTemplateFuncs = [
     pptvGetCategoryPageWithChannelID,
     pptvGetCategoryPageWithChannelID,
     pptvGetCategoryPageWithChannelID,
-    pptvGetCategoryPageWithChannelID,
-    pptvGetCategoryPageWithChannelID,
-    pptvGetCategoryPageWithChannelID,
-    history_func,
-    search
+    pptvSearch
 ];
 
 function pptvReplacePageContent(index, page) {
@@ -123,7 +120,7 @@ function pptvReplacePageContent(index, page) {
             const menuEle = childs.item(index);
             const feature = menuEle.parentNode.getFeature("MenuBarDocument");
             feature.setDocument(doc, menuEle);
-        });
+    });
 }
 
 var pptvMainMenuUI = function() {
