@@ -139,3 +139,4 @@ function time2str(time) {
     if (h>0) return ''+padLeft(h,2)+":"+padLeft(m,2)+":"+padLeft(s,2);
     else return ''+padLeft(m,2)+":"+padLeft(s,2);
 }
+

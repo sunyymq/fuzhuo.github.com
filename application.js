@@ -239,3 +239,6 @@ function time2str(time) {
     else return ''+padLeft(m,2)+":"+padLeft(s,2);
 }
 
+function printDoc(doc) {
+    console.log(new XMLSerializer().serializeToString(doc));
+}

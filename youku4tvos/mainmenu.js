@@ -4,11 +4,11 @@ var mainDoc;
 
 var channels = {
     "data":[
-        {"title":"电影", "channel_id":96, "page":1},
-        {"title":"电视剧", "channel_id":97, "page":1},
-        {"title":"动漫", "channel_id":100, "page":1},
-        {"title":"综艺", "channel_id":85, "page":1},
-        {"title":"纪录片", "channel_id":84, "page":1},
+        {"title":"电影", "channel_id":96, "page":1, "loading": 0},
+        {"title":"电视剧", "channel_id":97, "page":1, "loading": 0},
+        {"title":"动漫", "channel_id":100, "page":1, "loading": 0},
+        {"title":"综艺", "channel_id":85, "page":1, "loading": 0},
+        {"title":"纪录片", "channel_id":84, "page":1, "loading": 0},
         //{"title":"教育", "channel_id":87, "page":1},
         {"title":"历史", "channel_id":-1},
         {"title":"搜索", "channel_id":-1}
@@ -18,7 +18,7 @@ var channels = {
 var getCategoryPageWithChannelID = function(index, callback) {
     let channel_id = channels['data'][index]['channel_id'];
     let page = channels['data'][index]['page'];
-    let page_size = 58;
+    let page_size = 60;
     var url = `${YOUKU_HOST}layout/smarttv/item_list?${YOUKU_IDS}&cid=${channel_id}&pz=${page_size}&pg=${page}&filter=`;
     console.log("url:"+url);
     getHTTP(url, function(content){
@@ -26,49 +26,95 @@ var getCategoryPageWithChannelID = function(index, callback) {
         let data=JSON.parse(content);
         var docText = `
         <document>
-           <stackTemplate>
-              <banner>
-                 <title><![CDATA[${channels['data'][index]['title']}]]></title>
-              </banner>
-              <collectionList>
+            <head>
+                <style>
+                    .overlay {
+                        padding: 0;
+                        tv-position: bottom;
+                    }
+                    .overlay_title {
+                        background-color: rgba(0,0,0,0.6);
+                        color: #FFFFFF;
+                        text-align: center;
+                    }
+                </style>
+            </head>
+            <stackTemplate>
+                <banner>
+                     <title><![CDATA[${channels['data'][index]['title']}]]></title>
+                </banner>
+                <collectionList>
                  <grid>
-                    <section>`;
+                    <section id="section">`;
+        let i=0;
         for(var values of data['results']) {
             docText += `
-                       <lockup onselect="showSeries('${values['showid']}')">
+                       <lockup onselect="showSeries('${values['showid']}')" index="${(page-1)*page_size+i}">
                           <img src="${values['show_vthumburl_hd']}" width="250" height="376" />
                           <title><![CDATA[${values['showname']}]]></title>`;
             if (values['paid']!=0) {
                 docText += `
-                          <overlay style="padding: 0">
-                              <title style="background-color: rgba(0,0,0,0.6); color: #FFFFFF; text-align: center; width: 300">VIP</title>
+                          <overlay class="overlay">
+                              <title class="overlay_title">VIP</title>
                           </overlay>`;
             }
             docText += `
                        </lockup>`;
-        }
-        if (page>1) {
-            docText += `
-                        <lockup onselect="replacePageContent(${index},${page-1})">
-                          <img src="http://fuzhuo.qiniudn.com/prev.png" width="250" height="376" />
-                          <title>第${page-1}页</title>
-                        </lockup>`;
-        }
-        if (page*page_size < parseInt(data['total'])) {
-            docText += `
-                        <lockup onselect="replacePageContent(${index},${page+1})">
-                          <img src="http://fuzhuo.qiniudn.com/next.png" width="250" height="376" />
-                          <title>第${page+1}页</title>
-                        </lockup>`;
+            i++;
         }
         docText += `
                     </section>
                  </grid>
-              </collectionList>
-           </stackTemplate>
+                </collectionList>
+            </stackTemplate>
         </document>`;
         //console.log("docText:"+docText);
-        callback((new DOMParser).parseFromString(docText, "application/xml"));
+        var doc = (new DOMParser).parseFromString(docText, "application/xml")
+        doc.addEventListener('highlight', (event)=> {
+            let curPage = channels['data'][index]['page'];
+            let target = event.target;
+            let idx = target.getAttribute('index');
+            //console.log("highlight index: " + idx);
+            if (channels['data'][index]['loading'] == 1) return;
+            else if (idx >= curPage*page_size - 6) {
+                console.log("load more");
+                channels['data'][index]['loading'] = 1;
+                youkuLoadMore(doc, index);
+            }
+        });
+        callback(doc);
+    });
+}
+
+function youkuLoadMore(doc, index) {
+    console.log("load more");
+    let page = channels['data'][index]['page']+1;
+    channels['data'][index]['page']=page;
+
+    let channel_id = channels['data'][index]['channel_id'];
+    let page_size = 60;
+    var url = `${YOUKU_HOST}layout/smarttv/item_list?${YOUKU_IDS}&cid=${channel_id}&pz=${page_size}&pg=${page}&filter=`;
+    console.log("load more url:"+url);
+    getHTTP(url, function(content){
+        let data=JSON.parse(content);
+        let i=0;
+        for (let values of data['results']) {
+            let section = doc.getElementById('section');
+            let lockup = doc.createElement('lockup');
+            lockup.setAttribute('onselect', `showSeries('${values['showid']}')`);
+            lockup.setAttribute('index', (page-1)*page_size + i);
+            let img = doc.createElement('img');
+            img.setAttribute('src', `${values['show_vthumburl_hd']}`);
+            img.setAttribute('width', '250');
+            img.setAttribute('height', '376');
+            let title = doc.createElement('title');
+            title.textContent = `${values['showname']}`;
+            lockup.appendChild(img);
+            lockup.appendChild(title);
+            section.appendChild(lockup);
+            i++;
+        }
+        channels['data'][index]['loading'] = 0;
     });
 }
 
