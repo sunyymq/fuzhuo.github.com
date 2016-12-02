@@ -87,14 +87,14 @@ var getCategoryPageWithChannelID = function(index, callback) {
 }
 
 function youkuLoadMore(doc, index) {
-    console.log("load more");
+    //console.log("load more");
     let page = channels['data'][index]['page']+1;
     channels['data'][index]['page']=page;
 
     let channel_id = channels['data'][index]['channel_id'];
     let page_size = 60;
     var url = `${YOUKU_HOST}layout/smarttv/item_list?${YOUKU_IDS}&cid=${channel_id}&pz=${page_size}&pg=${page}&filter=`;
-    console.log("load more url:"+url);
+    //console.log("load more url:"+url);
     getHTTP(url, function(content){
         let data=JSON.parse(content);
         let i=0;
@@ -111,6 +111,15 @@ function youkuLoadMore(doc, index) {
             title.textContent = `${values['showname']}`;
             lockup.appendChild(img);
             lockup.appendChild(title);
+            if (values['paid'] !=0) {
+                let overlay = doc.createElement('overlay');
+                overlay.setAttribute('class', 'overlay');
+                let title = doc.createElement('title');
+                title.setAttribute('class', 'overlay_title');
+                title.textContent = 'VIP';
+                overlay.appendChild(title);
+                lockup.appendChild(overlay);
+            }
             section.appendChild(lockup);
             i++;
         }

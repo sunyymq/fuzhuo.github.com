@@ -2,11 +2,11 @@ var pptvMainDoc;
 
 var pptvChannels = {
     "data":[
-        {"title":"电影", "type":1, "page":1},
-        {"title":"电视剧", "type":2, "page":1},
-        {"title":"动漫", "type":3, "page":1},
-        {"title":"综艺", "type":4, "page":1},
-        {"title":"VIP", "type":75099, "page":1},
+        {"title":"电影", "type":1, "page":1, "loading": 0},
+        {"title":"电视剧", "type":2, "page":1, "loading": 0},
+        {"title":"动漫", "type":3, "page":1, "loading": 0},
+        {"title":"综艺", "type":4, "page":1, "loading": 0},
+        {"title":"VIP", "type":75099, "page":1, "loading": 0},
         {"title":"搜索", "type":-1, "page":1},
     ]
 };
@@ -52,45 +52,48 @@ var pptvGetCategoryPageWithChannelID = function(index, callback) {
         //console.log("results:"+JSON.stringify(results));
         var docText = `
         <document>
+           <head>
+                <style>
+                    .overlay {
+                        padding: 0;
+                    }
+                    .overlay_title {
+                        background-color: rgba(0,0,0,0.6);
+                        color: #FFFFFF;
+                        text-align: center;
+                        width: 300;
+                    }
+                </style>
+           </head>
            <stackTemplate>
               <banner>
                  <title><![CDATA[${pptvChannels['data'][index]['title']}]]></title>
               </banner>
               <collectionList>
                  <grid>
-                    <section>`;
+                    <section id="section">`;
+        let i=0;
         for(var values of results) {
             docText += `
-                       <lockup onselect="showPPTVSeries('${values['href']}')">
+                       <lockup onselect="showPPTVSeries('${values['href']}')" index="${(page-1)*results.length+i}">
                           <img src="${values['img']}" width="250" height="376" />
                           <title><![CDATA[${values['title']}]]></title>`;
             if (values['stats']) {
                 docText += `
-                          <overlay style="padding: 0">
-                              <title style="background-color: rgba(0,0,0,0.6); color: #FFFFFF; text-align: center; width: 300">${values['stats']}</title>
+                          <overlay class="overlay">
+                              <title class="overlay_title">${values['stats']}</title>
                           </overlay>`;
             }
             if (values['vip'] && values['vip']==1) {
                 docText += `
-                          <overlay style="padding: 0">
-                              <title style="background-color: rgba(0,0,0,0.6); color: #FFFFFF; text-align: center; width: 300">VIP</title>
+                          <overlay class="overlay">
+                              <title class="overlay_title">VIP</title>
                           </overlay>`;
             }
             docText += `
                        </lockup>`;
+            i++;
         }
-        if (page>1) {
-            docText += `
-                        <lockup onselect="pptvReplacePageContent(${index},${page-1})">
-                          <img src="http://fuzhuo.qiniudn.com/prev.png" width="250" height="376" />
-                          <title>第${page-1}页</title>
-                        </lockup>`;
-        }
-        docText += `
-            <lockup onselect="pptvReplacePageContent(${index},${page+1})">
-            <img src="http://fuzhuo.qiniudn.com/next.png" width="250" height="376" />
-            <title>第${page+1}页</title>
-            </lockup>`;
         docText += `
                     </section>
                  </grid>
@@ -98,7 +101,96 @@ var pptvGetCategoryPageWithChannelID = function(index, callback) {
            </stackTemplate>
         </document>`;
         //console.log("docText:"+docText);
-        callback((new DOMParser).parseFromString(docText, "application/xml"));
+        var doc = (new DOMParser).parseFromString(docText, "application/xml");
+        doc.addEventListener('highlight', (event)=> {
+            let curPage = pptvChannels['data'][index]['page'];
+            let target = event.target;
+            let idx = target.getAttribute('index');
+            //console.log("highlight index: " + idx + " ,curPage:" + curPage + " , threshould:" + (curPage*results.length - 6));
+            if (pptvChannels['data'][index]['loading'] == 1) return;
+            else if (idx >= curPage*results.length - 6) {
+                console.log("load more");
+                pptvChannels['data'][index]['loading'] = 1;
+                pptvLoadMore(doc, index);
+            }
+        });
+        callback(doc);
+    });
+}
+
+function pptvLoadMore(doc, index) {
+    console.log("pptv load more");
+    let type = pptvChannels['data'][index]['type'];
+    let page = pptvChannels['data'][index]['page']+1;
+    pptvChannels['data'][index]['page']=page;
+    if (type == 75099) {
+        var url = `http://list.pptv.com/channel_list.html?page=${page}&type=${type}&sort=1`;
+    } else {
+        var url = `http://list.pptv.com/channel_list.html?page=${page}&type=${type}&sort=6`;
+    }
+    console.log("url:"+url);
+    getHTTP(url, function(content){
+        //console.log("content:"+content);
+        var lines = content.split('\n');
+        let idx=-1;
+        var results = [];
+        for (let i=0; i<lines.length; i++) {
+            var link = lines[i].match(/<a class="ui-list-ct".* href=['"](.*)['"].*target=['"](.*)['"].*title="(.*)">/);
+            if (link) {
+                idx++;
+                results[idx]={};
+                results[idx]['href'] = link[1];
+                results[idx]['title'] = link[3];
+            }
+            var imgs = lines[i].match(/<img src="(.*)" data-src2="(.*)">/);
+            var stats = lines[i].match(/<span class="msk-txt">(.*)<\/span>/);
+            if (imgs) {
+                results[idx]['img'] = imgs[2];
+            }
+            if (stats) {
+                results[idx]['stats'] = stats[1];
+            }
+            var vip = lines[i].match(/class="cover ico_4 cf"/);
+            if (vip) {
+                results[idx]['vip'] = 1;
+            }
+        }
+        let i=0;
+        for(var values of results) {
+            let section = doc.getElementById('section');
+            let lockup = doc.createElement('lockup');
+            lockup.setAttribute('onselect', `showPPTVSeries('${values['href']}')`);
+            lockup.setAttribute('index', (page-1)*results.length+ i);
+            let img = doc.createElement('img');
+            img.setAttribute('src', `${values['img']}`);
+            img.setAttribute('width', '250');
+            img.setAttribute('height', '376');
+            let title = doc.createElement('title');
+            title.textContent = `${values['title']}`;
+            lockup.appendChild(img);
+            lockup.appendChild(title);
+            if (values['stats']) {
+                let overlay = doc.createElement('overlay');
+                overlay.setAttribute('class', 'overlay');
+                let t = doc.createElement('title');
+                t.setAttribute('class', 'overlay_title');
+                t.textContent = `${values['stats']}`;
+                overlay.appendChild(t);
+                lockup.appendChild(overlay);
+            } else if (values['vip'] && values['vip']==1) {
+                let overlay = doc.createElement('overlay');
+                overlay.setAttribute('class', 'overlay');
+                let t = doc.createElement('title');
+                t.setAttribute('class', 'overlay_title');
+                t.textContent = 'VIP';
+                overlay.appendChild(t);
+                lockup.appendChild(overlay);
+            }
+            section.appendChild(lockup);
+            i++;
+        }
+        //printDoc(doc);
+        pptvChannels['data'][index]['loading'] = 0;
     });
 }
 
