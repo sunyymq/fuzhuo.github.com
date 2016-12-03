@@ -4,14 +4,14 @@ var mainDoc;
 
 var channels = {
     "data":[
-        {"title":"电影", "channel_id":96, "page":1, "loading": 0},
-        {"title":"电视剧", "channel_id":97, "page":1, "loading": 0},
-        {"title":"动漫", "channel_id":100, "page":1, "loading": 0},
-        {"title":"综艺", "channel_id":85, "page":1, "loading": 0},
-        {"title":"纪录片", "channel_id":84, "page":1, "loading": 0},
+        {"title":(lan=='en')?"Movies":"电影", "channel_id":96, "page":1, "loading": 0},
+        {"title":(lan=='en')?"Series":"电视剧", "channel_id":97, "page":1, "loading": 0},
+        {"title":(lan=='en')?"Cartoon":"动漫", "channel_id":100, "page":1, "loading": 0},
+        {"title":(lan=='en')?"Shows":"综艺", "channel_id":85, "page":1, "loading": 0},
+        {"title":(lan=='en')?"Docs":"纪录片", "channel_id":84, "page":1, "loading": 0},
         //{"title":"教育", "channel_id":87, "page":1},
-        {"title":"历史", "channel_id":-1},
-        {"title":"搜索", "channel_id":-1}
+        {"title":(lan=='en')?"History":"历史", "channel_id":-1},
+        {"title":(lan=='en')?"Search":"搜索", "channel_id":-1}
     ]
 };
 
@@ -186,7 +186,7 @@ function showMainMenu(loadDoc) {
             const ele = event.target.parentNode;
             const feature = ele.getFeature("MenuBarDocument");
             if (!feature.getDocument(event.target)) {
-                var loadDoc = createLoadingDocument("加载中...");
+                var loadDoc = createLoadingDocument((lan=='en')?"Loading..":"加载中...");
                 feature.setDocument(loadDoc, event.target);
                 templateFuncs[index](index, function(doc, loading) {
                     feature.setDocument(doc, event.target);

@@ -23,7 +23,7 @@ function createSeriesDoc(serieID, callback) {
                 <infoList>
                 <info>
                 <header>
-                <title>导演</title>
+                <title>${(lan=='en')?"Director":"导演"}</title>
                 </header>`;
             if (detail['director'] && detail['director'][0]) {
                 docText += `
@@ -33,7 +33,7 @@ function createSeriesDoc(serieID, callback) {
                 </info>
                 <info>
                 <header>
-                <title>主演</title>
+                <title>${(lan=='en')?"Actors":"主演"}</title>
                 </header>`;
             if(detail['performer']) {
                 for(var value of detail['performer']) {
@@ -73,16 +73,16 @@ function createSeriesDoc(serieID, callback) {
             var data;
             if (typeof history === 'undefined') {
                 docText += `
-                    <title id="continue_play">播放</title>`;
+                    <title id="continue_play">${(lan=='en')?"Play":"播放"}</title>`;
             } else {
                 console.log("history: "+history);
                 data = JSON.parse(history);
                 if (data[serieID]) {
                     docText += `
-                        <title id="continue_play">继续播放</title>`;
+                        <title id="continue_play">${(lan=='en')?"Continue":"继续播放"}</title>`;
                 } else {
                     docText += `
-                        <title id="continue_play">播放首集</title>`;
+                        <title id="continue_play">${(lan=='en')?"PlayFirstOne":"播放首集"}</title>`;
                 }
             }
             docText += `
@@ -92,7 +92,7 @@ function createSeriesDoc(serieID, callback) {
                 docText += `
                 <buttonLockup index="-2">
                     <badge src="resource://button-preview" />
-                    <title>播放下一集</title>
+                    <title>${(lan=='en')?"NextOne":"播放下一集"}</title>
                 </buttonLockup>`;
             }
             docText += `
@@ -100,7 +100,7 @@ function createSeriesDoc(serieID, callback) {
                 <row id="history_text">`;
             if (typeof history === 'undefined') {
                 docText += `
-                    <text>无播放历史</text>`;
+                    <text>${(lan=='en')?"No History":"无播放历史"}</text>`;
             } else {
                 console.log("history: "+history);
                 data = JSON.parse(history);
@@ -170,7 +170,7 @@ function createSeriesDoc(serieID, callback) {
 
 function showSeries(serieID) {
     console.log("showseries:"+serieID);
-    var loadDoc = createLoadingDocument("加载剧集信息中...");
+    var loadDoc = createLoadingDocument((lan=='en')?"Loading Info..":"加载剧集信息中...");
     navigationDocument.pushDocument(loadDoc);
     createSeriesDoc(serieID, function(doc, detailData, serieData){
         seriesDoc = doc;

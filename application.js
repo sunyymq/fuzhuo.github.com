@@ -23,6 +23,7 @@ App.onLaunch = function(options) {
     appStart(baseURL);
 }
 
+var lan = Settings.language;
 function appStart(baseURL) {
     console.log("Base URL is " + baseURL);
     const scripts = [
@@ -59,7 +60,7 @@ function appStart(baseURL) {
         console.log("current version: " + currentVersion);
     });
 
-    const loadingDocument = createLoadingDocument("加载中..");
+    const loadingDocument = createLoadingDocument((lan=='en')?"Loading...":"加载中..");
     navigationDocument.pushDocument(loadingDocument);
 
     for (let a of scripts) {
