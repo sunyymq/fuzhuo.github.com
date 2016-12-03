@@ -68,7 +68,8 @@ function appStart(baseURL) {
     evaluateScripts(scripts, function(scriptsAreLoaded) {
         if (scriptsAreLoaded) {
             console.log("scripts are loaded");
-            showHomePage();
+            //showHomePage();
+            showMainMenu(loadingDocument);
         } else {
             const alertDocument = createEvalErrorAlertDocument();
             navigationDocument.replaceDocument(alertDocument, loadingDocument);

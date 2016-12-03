@@ -171,9 +171,13 @@ var mainmenuUI = function() {
     return (new DOMParser).parseFromString(tmp, "application/xml");
 }
 
-function showMainMenu() {
-    var loading = createLoadingDocument();
-    navigationDocument.pushDocument(loading);
+function showMainMenu(loadDoc) {
+    if (!loadDoc) {
+        var loading = createLoadingDocument();
+        navigationDocument.pushDocument(loading);
+    } else {
+        var loading = loadDoc;
+    }
     mainDoc = mainmenuUI();
     const Elem = mainDoc.getElementsByTagName("menuBar").item(0);
     Elem.addEventListener("select", (event)=> {
