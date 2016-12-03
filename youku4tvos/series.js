@@ -170,7 +170,7 @@ function createSeriesDoc(serieID, callback) {
 
 function showSeries(serieID) {
     console.log("showseries:"+serieID);
-    var loadDoc = createLoadingDocument("优酷加载剧集信息中...");
+    var loadDoc = createLoadingDocument("加载剧集信息中...");
     navigationDocument.pushDocument(loadDoc);
     createSeriesDoc(serieID, function(doc, detailData, serieData){
         seriesDoc = doc;
