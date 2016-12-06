@@ -27,7 +27,7 @@ var lan = Settings.language;
 function appStart(baseURL) {
     console.log("Base URL is " + baseURL);
     const scripts = [
-        "home",
+        "home_store",
         "youku4tvos/search",
         "youku4tvos/history",
         "youku4tvos/mainmenu",
